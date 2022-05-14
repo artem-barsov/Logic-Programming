@@ -7,9 +7,7 @@ ask_question(R) :-
 
 ask_question(R, Ans) :-
     read_string_to_list(R, A),
-    write(A), write("\n"),
     parse_question(Model, A, []),
-    write(Model), write("\n"),
     parse_model(Model, Args),
     generate_ans(Args, Ans).
 
