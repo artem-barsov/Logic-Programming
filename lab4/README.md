@@ -15,6 +15,32 @@ answer(X,[volodia,brat,toli,'?']).
 answer(X,[kto,tolin,brat,'?']).
 answer(X,[chei,brat,volodia,'?']).
 ```
+### Листинг основных предикатов
+```prolog
+answer(X, [A, B, C, D]) :- an_question(X, _Z, [A, B, C, D]).
+
+an_question(Y, type('1'), [A, B, C, D]) :-
+    an_first_word(X1, type('1'), A),
+    B = 'brat',
+    an_name(X2, pad('род'), C),
+    D = '?',
+    yes_or_no(X1, X2, Y).
+
+an_question(Y, type('2'), [A, B, C, D]) :-
+    an_first_word(_X1, type('2'), A),
+    an_name(X2, pad('прит'), B),
+    C = 'brat', D = '?',
+    brat(Y, X2).
+
+an_question(Y, type('3'), [A, B, C, D]) :-
+    an_first_word(_X1, type('3'), A),
+    B = 'brat',
+    an_name(X2, pad('им'), C),
+    D = '?',
+    brat(Y, X2).
+
+brat(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
+```
 
 ### Решение
 Примеры использования предиката запроса:
@@ -28,3 +54,7 @@ X = volodia .
 ?- answer(X,[chei,brat,volodia,'?']).
 X = tolia .
 ```
+### Вывод
+В ходе лабораторной работы я познакомился с понятиями констекстно-свободных грамматик и синтаксическим анализом и построил синтаксический анализатор на языке Пролог для разбора ограниченных предложений русского языка.
+
+Язык Пролог оказался очень удобен для задач грамматического разбора, так как в силу декларативной природы он позволяет просто описывать правила грамматики.
